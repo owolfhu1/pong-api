@@ -17,7 +17,7 @@ public class PlayerController {
 
     @RequestMapping(value = "test", method = RequestMethod.GET)
     public String test() {
-        return "hello world";
+        return "The API has booted up.";
     }
 
     @RequestMapping(value = "register", method = RequestMethod.GET)
