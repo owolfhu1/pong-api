@@ -5,14 +5,12 @@ import com.catalyte.OrionsPets.models.Player;
 import com.catalyte.OrionsPets.repositories.GameRepository;
 import com.catalyte.OrionsPets.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Orion Wolf_Hubbard on 8/5/19.
  */
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "games")
 public class GameController {
