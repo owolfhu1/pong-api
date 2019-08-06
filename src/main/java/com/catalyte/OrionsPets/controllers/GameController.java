@@ -38,7 +38,7 @@ public class GameController {
             int count = (int) gameRepository.count() + 1;
             Game game = new Game(playerOne, playerTwo, scoreOne, scoreTwo, count);
             gameRepository.insert(game);
-            return "You have added a new game";
+            return "You have added a new game, game number " + count;
         }
     }
 
