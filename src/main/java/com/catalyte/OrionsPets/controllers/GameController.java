@@ -27,8 +27,7 @@ public class GameController {
         @RequestParam String playerOne,
         @RequestParam String playerTwo,
         @RequestParam int scoreOne,
-        @RequestParam int scoreTwo,
-        @RequestParam String date
+        @RequestParam int scoreTwo
     ) {
         if(
             !playerRepository.existsByUsername(playerOne) ||
@@ -37,7 +36,8 @@ public class GameController {
         ) {
             return "Please enter valid players";
         } else {
-            Game game = new Game(playerOne, playerTwo, scoreOne, scoreTwo, date);
+            int count = (int) gameRepository.count() + 1;
+            Game game = new Game(playerOne, playerTwo, scoreOne, scoreTwo, count);
             gameRepository.insert(game);
             return "You have added a new game";
         }

@@ -11,14 +11,14 @@ public class Game {
     private String playerTwo;
     private int scoreOne;
     private int scoreTwo;
-    private String date;
+    private int gameNumber;
 
-    public Game(String playerOne, String playerTwo, int scoreOne, int scoreTwo, String date) {
+    public Game(String playerOne, String playerTwo, int scoreOne, int scoreTwo, int gameNumber) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.scoreOne = scoreOne;
         this.scoreTwo = scoreTwo;
-        this.date = date;
+        this.gameNumber = gameNumber;
     }
 
     public String getId() {
@@ -61,11 +61,11 @@ public class Game {
         this.scoreTwo = scoreTwo;
     }
 
-    public String getDate() {
-        return date;
+    public int getGameNumber() {
+        return gameNumber;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setGameNumber(int gameNumber) {
+        this.gameNumber = gameNumber;
     }
 }
