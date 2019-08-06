@@ -9,10 +9,19 @@ public class Player {
   @Id
   private String id;
   private String username;
+  private double rating;
 
-  public Player(){}
   public Player(String username) {
     this.username = username;
+    this.rating = 1500;
+  }
+
+  public double getRating() {
+    return rating;
+  }
+
+  public void setRating(double rating) {
+    this.rating = rating;
   }
 
   public String getId() {
