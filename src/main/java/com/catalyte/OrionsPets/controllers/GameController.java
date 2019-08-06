@@ -6,6 +6,9 @@ import com.catalyte.OrionsPets.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Created by Orion Wolf_Hubbard on 8/5/19.
  */
@@ -40,6 +43,13 @@ public class GameController {
             gameRepository.insert(game);
             return "You have added a new game, game number " + count;
         }
+    }
+
+    @RequestMapping(value = "all", method = RequestMethod.GET)
+    public List<Game> all() {
+        List<Game> games = gameRepository.findAll();
+        games.sort(Comparator.comparingInt(Game::getGameNumber));
+        return games;
     }
 
 }
