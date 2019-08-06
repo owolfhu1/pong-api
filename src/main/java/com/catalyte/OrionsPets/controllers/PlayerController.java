@@ -5,6 +5,9 @@ import com.catalyte.OrionsPets.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Orion Wolf_Hubbard on 8/5/19.
  */
@@ -28,5 +31,13 @@ public class PlayerController {
             playerRepository.insert(new Player(username));
             return String.format("You have registered player %s.", username);
         }
+    }
+
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public ArrayList<String> list() {
+        ArrayList<String> names = new ArrayList<>();
+        List<Player> players = playerRepository.findAll();
+        players.forEach(player -> names.add(player.getUsername()));
+        return names;
     }
 }
