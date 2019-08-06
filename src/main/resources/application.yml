@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://orion:pass12@ds245901.mlab.com:45901/heroku_v8s7ccj0"
