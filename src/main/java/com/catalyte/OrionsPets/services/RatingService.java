@@ -14,8 +14,8 @@ public class RatingService {
         double fraction1 = score1 / (score1 + score2);
         double fraction2 = score2 / (score1 + score2);
 
-        double newRating1 = player1.getRating() + K * (fraction1 - transform1);
-        double newRating2 = player2.getRating() + K * (fraction2 - transform2);
+        double newRating1 = player1.getRating() + K * (score1 > score2 ? 1 : 0 - transform1);
+        double newRating2 = player2.getRating() + K * (score1 > score2 ? 0 : 1 - transform2);
 
         player1.setRating(newRating1);
         player2.setRating(newRating2);
