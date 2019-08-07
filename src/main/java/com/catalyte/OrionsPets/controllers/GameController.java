@@ -64,13 +64,13 @@ public class GameController {
             playerRepository.save(player);
         });
 
-        games.forEach(game -> {
-            Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
-            Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
-            RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
-            playerRepository.save(player1);
-            playerRepository.save(player2);
-        });
+//        games.forEach(game -> {
+//            Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
+//            Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
+//            RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
+//            playerRepository.save(player1);
+//            playerRepository.save(player2);
+//        });
 
         return "all games have been rated";
     }
