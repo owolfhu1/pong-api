@@ -1,8 +1,10 @@
 package com.catalyte.OrionsPets.controllers;
 
 import com.catalyte.OrionsPets.models.Game;
+import com.catalyte.OrionsPets.models.Player;
 import com.catalyte.OrionsPets.repositories.GameRepository;
 import com.catalyte.OrionsPets.repositories.PlayerRepository;
+import com.catalyte.OrionsPets.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,4 +54,24 @@ public class GameController {
         return games;
     }
 
+    @RequestMapping(value = "rate", method = RequestMethod.GET)
+    public String rateAllGames() {
+        List<Game> games = gameRepository.findAll();
+        games.sort(Comparator.comparingInt(Game::getGameNumber));
+
+        playerRepository.findAll().forEach(player -> {
+            player.setRating(1500);
+            playerRepository.insert(player);
+        });
+
+        games.forEach(game -> {
+            Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
+            Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
+            RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
+            playerRepository.insert(player1);
+            playerRepository.insert(player2);
+        });
+
+        return "all games have been rated";
+    }
 }
