@@ -43,7 +43,12 @@ public class GameController {
             int count = (int) gameRepository.count() + 1;
             Game game = new Game(playerOne, playerTwo, scoreOne, scoreTwo, count);
             gameRepository.insert(game);
-            return "You have added a new game, game number " + count;
+            Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
+            Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
+            RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
+            playerRepository.save(player1);
+            playerRepository.save(player2);
+            return "You have added a new game and rating have been updated, game number " + count;
         }
     }
 
@@ -64,13 +69,13 @@ public class GameController {
             playerRepository.save(player);
         });
 
-//        games.forEach(game -> {
-//            Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
-//            Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
-//            RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
-//            playerRepository.save(player1);
-//            playerRepository.save(player2);
-//        });
+        games.forEach(game -> {
+            Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
+            Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
+            RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
+            playerRepository.save(player1);
+            playerRepository.save(player2);
+        });
 
         return "all games have been rated";
     }
