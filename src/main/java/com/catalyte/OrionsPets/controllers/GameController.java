@@ -61,15 +61,15 @@ public class GameController {
 
         playerRepository.findAll().forEach(player -> {
             player.setRating(1500);
-            playerRepository.insert(player);
+            playerRepository.save(player);
         });
 
         games.forEach(game -> {
             Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
             Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
             RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
-            playerRepository.insert(player1);
-            playerRepository.insert(player2);
+            playerRepository.save(player1);
+            playerRepository.save(player2);
         });
 
         return "all games have been rated";
