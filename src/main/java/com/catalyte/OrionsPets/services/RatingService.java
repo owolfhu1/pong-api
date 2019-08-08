@@ -3,7 +3,7 @@ package com.catalyte.OrionsPets.services;
 import com.catalyte.OrionsPets.models.Player;
 
 public class RatingService {
-    private static int K = 150;
+    private static int K = 50;
 
     public static void rate(Player player1, Player player2, int score1, int score2) {
         double transform1 = Math.pow(10, player1.getRating() / 400) / (Math.pow(10, player1.getRating() / 400) + Math.pow(10, player2.getRating() / 400));
