@@ -67,6 +67,8 @@ public class GameController {
 
         playerRepository.findAll().forEach(player -> {
             player.setRating(1500);
+            player.setWins(0);
+            player.setLosses(0);
             playerRepository.save(player);
         });
 

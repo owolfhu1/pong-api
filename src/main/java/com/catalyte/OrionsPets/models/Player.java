@@ -9,11 +9,36 @@ public class Player {
   @Id
   private String id;
   private String username;
-  private double rating;
+  private double rating = 1500;
+  private int wins = 0;
+  private int losses = 0;
 
   public Player(String username) {
     this.username = username;
-    this.rating = 1500;
+  }
+
+  public void win() {
+    this.wins++;
+  }
+
+  public void lose() {
+    this.losses++;
+  }
+
+  public int getWins() {
+    return wins;
+  }
+
+  public void setWins(int wins) {
+    this.wins = wins;
+  }
+
+  public int getLosses() {
+    return losses;
+  }
+
+  public void setLosses(int losses) {
+    this.losses = losses;
   }
 
   public double getRating() {

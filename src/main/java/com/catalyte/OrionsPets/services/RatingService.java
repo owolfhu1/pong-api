@@ -20,5 +20,13 @@ public class RatingService {
 
         player1.setRating(newRating1);
         player2.setRating(newRating2);
+
+        if (score1 > score2) {
+            player1.win();
+            player2.lose();
+        } else {
+            player1.lose();
+            player2.win();
+        }
     }
 }
