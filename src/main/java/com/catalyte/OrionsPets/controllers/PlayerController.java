@@ -42,9 +42,14 @@ public class PlayerController {
     }
 
     @RequestMapping(value = "scores", method = RequestMethod.GET)
-    public List<Player> scores() {
+    public List<Player> scores(@RequestParam String type) {
         List<Player> players = playerRepository.findAll();
-        players.sort((a,b) -> (int) (b.getRating() - a.getRating()));
+        switch (type) {
+            case "rating": players.sort((a,b) -> (int) (b.getRating() - a.getRating())); break;
+            case "games": players.sort((a,b) -> ((b.getWins() + b.getLosses()) - (a.getWins() + a.getLosses()))); break;
+            case "wins": players.sort((a,b) -> (b.getWins() - a.getWins())); break;
+            case "losses": players.sort((a,b) -> (b.getLosses() - a.getLosses())); break;
+        }
         return players;
     }
 }
