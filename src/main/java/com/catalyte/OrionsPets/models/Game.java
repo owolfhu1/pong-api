@@ -3,6 +3,8 @@ package com.catalyte.OrionsPets.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+
 @Document(collection = "games")
 public class Game {
     @Id
@@ -12,6 +14,7 @@ public class Game {
     private int scoreOne;
     private int scoreTwo;
     private int gameNumber;
+    private ArrayList<Game> history = new ArrayList<>();
 
     public Game(String playerOne, String playerTwo, int scoreOne, int scoreTwo, int gameNumber) {
         this.playerOne = playerOne;
@@ -19,6 +22,18 @@ public class Game {
         this.scoreOne = scoreOne;
         this.scoreTwo = scoreTwo;
         this.gameNumber = gameNumber;
+    }
+
+    public void addHistoy(Game game) {
+        this.history.add(game);
+    }
+
+    public ArrayList<Game> getHistory() {
+        return history;
+    }
+
+    public void setHistory(ArrayList<Game> history) {
+        this.history = history;
     }
 
     public String getId() {

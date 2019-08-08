@@ -121,4 +121,16 @@ public class GameController {
         game.setScoreTwo(score1);
         game.setPlayerTwo(player1);
     }
+
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    public String update(@RequestBody Game game) {
+        Game original = gameRepository.findDistinctByGameNumber(game.getGameNumber());
+        original.addHistoy(original);
+        original.setPlayerOne(game.getPlayerOne());
+        original.setPlayerTwo(game.getPlayerTwo());
+        original.setScoreOne(game.getScoreOne());
+        original.setScoreTwo(game.getScoreTwo());
+        gameRepository.save(original);
+        return "game " + original.getGameNumber() + " updated";
+    }
 }
