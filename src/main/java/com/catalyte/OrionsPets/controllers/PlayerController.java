@@ -40,4 +40,11 @@ public class PlayerController {
         players.forEach(player -> names.add(player.getUsername()));
         return names;
     }
+
+    @RequestMapping(value = "scores", method = RequestMethod.GET)
+    public List<Player> scores() {
+        List<Player> players = playerRepository.findAll();
+        players.sort((a,b) -> (int) (b.getRating() - a.getRating()));
+        return players;
+    }
 }
