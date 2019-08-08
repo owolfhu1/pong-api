@@ -8,6 +8,7 @@ import com.catalyte.OrionsPets.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -78,5 +79,30 @@ public class GameController {
         });
 
         return "all games have been rated";
+    }
+
+    @RequestMapping(value = "player", method = RequestMethod.GET)
+    public List<Game> player(@RequestParam String player) {
+        List<Game> games = new ArrayList<>();
+        gameRepository.findAll().forEach(game -> {
+            if (game.getPlayerOne().equals(player) || game.getPlayerTwo().equals(player))
+                games.add(game);
+        });
+        games.sort(Comparator.comparingInt(Game::getGameNumber));
+        return games;
+    }
+
+    @RequestMapping(value = "vs", method = RequestMethod.GET)
+    public List<Game> playerVsPlayer(@RequestParam String playerOne, @RequestParam String playerTwo) {
+        List<Game> games = new ArrayList<>();
+        gameRepository.findAll().forEach(game -> {
+            if (
+                    (game.getPlayerOne().equals(playerOne) && game.getPlayerTwo().equals(playerTwo)) ||
+                    (game.getPlayerOne().equals(playerTwo) && game.getPlayerTwo().equals(playerOne))
+            )
+                games.add(game);
+        });
+        games.sort(Comparator.comparingInt(Game::getGameNumber));
+        return games;
     }
 }
