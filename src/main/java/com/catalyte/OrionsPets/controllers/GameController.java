@@ -85,8 +85,12 @@ public class GameController {
     public List<Game> player(@RequestParam String player) {
         List<Game> games = new ArrayList<>();
         gameRepository.findAll().forEach(game -> {
-            if (game.getPlayerOne().equals(player) || game.getPlayerTwo().equals(player))
+            if (game.getPlayerOne().equals(player))
                 games.add(game);
+            else if (game.getPlayerTwo().equals(player)) {
+                flipGame(game);
+                games.add(game);
+            }
         });
         games.sort(Comparator.comparingInt(Game::getGameNumber));
         return games;
@@ -96,13 +100,23 @@ public class GameController {
     public List<Game> playerVsPlayer(@RequestParam String playerOne, @RequestParam String playerTwo) {
         List<Game> games = new ArrayList<>();
         gameRepository.findAll().forEach(game -> {
-            if (
-                    (game.getPlayerOne().equals(playerOne) && game.getPlayerTwo().equals(playerTwo)) ||
-                    (game.getPlayerOne().equals(playerTwo) && game.getPlayerTwo().equals(playerOne))
-            )
+            if (game.getPlayerOne().equals(playerOne) && game.getPlayerTwo().equals(playerTwo))
                 games.add(game);
+            else if (game.getPlayerOne().equals(playerTwo) && game.getPlayerTwo().equals(playerOne)) {
+                flipGame(game);
+                games.add(game);
+            }
         });
         games.sort(Comparator.comparingInt(Game::getGameNumber));
         return games;
+    }
+
+    private void flipGame(Game game) {
+        int score1 = game.getScoreOne();
+        String player1 = game.getPlayerOne();
+        game.setScoreOne(game.getScoreTwo());
+        game.setPlayerOne(game.getPlayerTwo());
+        game.setScoreTwo(score1);
+        game.setPlayerTwo(player1);
     }
 }
