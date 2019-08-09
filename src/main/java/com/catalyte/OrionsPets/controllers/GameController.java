@@ -122,21 +122,23 @@ public class GameController {
         game.setPlayerTwo(player1);
     }
 
-//    @RequestMapping(value = "update", method = RequestMethod.GET)
-//    public String update(
-//        @RequestParam String playerOne,
-//        @RequestParam String playerTwo,
-//        @RequestParam int scoreOne,
-//        @RequestParam int scoreTwo,
-//        @RequestParam int gameNumber
-//    ) {
-//        Game original = gameRepository.findDistinctByGameNumber(gameNumber);
-//        original.addHistoy(new Game(original));
-//        original.setPlayerOne(playerOne);
-//        original.setPlayerTwo(playerTwo);
-//        original.setScoreOne(scoreOne);
-//        original.setScoreTwo(scoreTwo);
-//        gameRepository.save(original);
-//        return "game " + original.getGameNumber() + " updated";
-//    }
+    @RequestMapping(value = "update", method = RequestMethod.GET)
+    public String update(
+        @RequestParam String playerOne,
+        @RequestParam String playerTwo,
+        @RequestParam int scoreOne,
+        @RequestParam int scoreTwo,
+        @RequestParam int gameNumber
+    ) {
+        Game original = gameRepository.findDistinctByGameNumber(gameNumber);
+        Game copy = new Game(original.getPlayerOne(),original.getPlayerTwo(), original.getScoreOne(), original.getScoreTwo(), original.getGameNumber());
+        copy.setHistory(original.getHistory());
+        original.addHistory(copy);
+        original.setPlayerOne(playerOne);
+        original.setPlayerTwo(playerTwo);
+        original.setScoreOne(scoreOne);
+        original.setScoreTwo(scoreTwo);
+        gameRepository.save(original);
+        return "game " + original.getGameNumber() + " updated";
+    }
 }

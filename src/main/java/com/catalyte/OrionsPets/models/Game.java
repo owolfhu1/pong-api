@@ -24,17 +24,7 @@ public class Game {
         this.gameNumber = gameNumber;
     }
 
-    public Game(Game oldGame) {
-        this.id = oldGame.id;
-        this.playerOne = oldGame.playerOne;
-        this.playerTwo = oldGame.playerTwo;
-        this.scoreOne = oldGame.scoreOne;
-        this.scoreTwo = oldGame.scoreTwo;
-        this.gameNumber = oldGame.gameNumber;
-        this.history = oldGame.history;
-    }
-
-    public void addHistoy(Game game) {
+    public void addHistory(Game game) {
         this.history.add(game);
     }
 
