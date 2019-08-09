@@ -144,6 +144,7 @@ public class GameController {
         original.setScoreOne(scoreOne);
         original.setScoreTwo(scoreTwo);
         gameRepository.save(original);
-        return "game " + original.getGameNumber() + " updated";
+        rateAllGames();
+        return "game " + original.getGameNumber() + " and ratings updated";
     }
 }
