@@ -138,7 +138,6 @@ public class GameController {
             original.getScoreTwo(),
             original.getGameNumber()
         );
-        //copy.setHistory(original.getHistory());
         original.addHistory(copy);
         original.setPlayerOne(playerOne);
         original.setPlayerTwo(playerTwo);
