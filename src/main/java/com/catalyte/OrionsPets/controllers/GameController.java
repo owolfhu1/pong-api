@@ -130,6 +130,7 @@ public class GameController {
         @RequestParam int scoreTwo,
         @RequestParam int gameNumber
     ) {
+        System.out.println(playerOne);
         Game original = gameRepository.findDistinctByGameNumber(gameNumber);
         Game copy = new Game(original.getPlayerOne(),original.getPlayerTwo(), original.getScoreOne(), original.getScoreTwo(), original.getGameNumber());
         copy.setHistory(original.getHistory());
