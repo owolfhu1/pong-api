@@ -13,19 +13,27 @@ public class Game {
     private String playerTwo;
     private int scoreOne;
     private int scoreTwo;
-    private int gameNumber;
+    private long time;
     private ArrayList<Game> history = new ArrayList<>();
 
-    public Game(String playerOne, String playerTwo, int scoreOne, int scoreTwo, int gameNumber) {
+    public Game(String playerOne, String playerTwo, int scoreOne, int scoreTwo, long time) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.scoreOne = scoreOne;
         this.scoreTwo = scoreTwo;
-        this.gameNumber = gameNumber;
+        this.time = time;
     }
 
     public void addHistory(Game game) {
         this.history.add(game);
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public ArrayList<Game> getHistory() {
@@ -74,13 +82,5 @@ public class Game {
 
     public void setScoreTwo(int scoreTwo) {
         this.scoreTwo = scoreTwo;
-    }
-
-    public int getGameNumber() {
-        return gameNumber;
-    }
-
-    public void setGameNumber(int gameNumber) {
-        this.gameNumber = gameNumber;
     }
 }

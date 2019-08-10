@@ -30,7 +30,8 @@ public class GameController {
         @RequestParam String playerOne,
         @RequestParam String playerTwo,
         @RequestParam int scoreOne,
-        @RequestParam int scoreTwo
+        @RequestParam int scoreTwo,
+        @RequestParam long time
     ) {
         if(
             !playerRepository.existsByUsername(playerOne) ||
@@ -41,29 +42,28 @@ public class GameController {
         } else if (scoreOne < 0 || scoreTwo < 0 || scoreOne == scoreTwo) {
             return "Please enter valid scores";
         } else {
-            int count = (int) gameRepository.count() + 1;
-            Game game = new Game(playerOne, playerTwo, scoreOne, scoreTwo, count);
+            Game game = new Game(playerOne, playerTwo, scoreOne, scoreTwo, time);
             gameRepository.insert(game);
             Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
             Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
             RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
             playerRepository.save(player1);
             playerRepository.save(player2);
-            return "You have added a new game and rating have been updated, game number " + count;
+            return "You have added a new game and rating have been updated, game time  " + time;
         }
     }
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public List<Game> all() {
         List<Game> games = gameRepository.findAll();
-        games.sort(Comparator.comparingInt(Game::getGameNumber));
+        games.sort(Comparator.comparingLong(Game::getTime));
         return games;
     }
 
     @RequestMapping(value = "rate", method = RequestMethod.GET)
     public String rateAllGames() {
         List<Game> games = gameRepository.findAll();
-        games.sort(Comparator.comparingInt(Game::getGameNumber));
+        games.sort(Comparator.comparingLong(Game::getTime));
 
         playerRepository.findAll().forEach(player -> {
             player.setRating(1500);
@@ -94,7 +94,7 @@ public class GameController {
                 games.add(game);
             }
         });
-        games.sort(Comparator.comparingInt(Game::getGameNumber));
+        games.sort(Comparator.comparingLong(Game::getTime));
         return games;
     }
 
@@ -109,7 +109,7 @@ public class GameController {
                 games.add(game);
             }
         });
-        games.sort(Comparator.comparingInt(Game::getGameNumber));
+        games.sort(Comparator.comparingLong(Game::getTime));
         return games;
     }
 
@@ -136,7 +136,7 @@ public class GameController {
             original.getPlayerTwo(),
             original.getScoreOne(),
             original.getScoreTwo(),
-            original.getGameNumber()
+            original.getTime()
         );
         original.addHistory(copy);
         original.setPlayerOne(playerOne);
@@ -145,6 +145,6 @@ public class GameController {
         original.setScoreTwo(scoreTwo);
         gameRepository.save(original);
         rateAllGames();
-        return "game " + original.getGameNumber() + " and ratings updated";
+        return "game at " + original.getTime() + " and ratings updated";
     }
 }
