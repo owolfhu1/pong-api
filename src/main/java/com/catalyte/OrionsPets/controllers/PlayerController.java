@@ -49,7 +49,20 @@ public class PlayerController {
             case "games": players.sort((a,b) -> ((b.getWins() + b.getLosses()) - (a.getWins() + a.getLosses()))); break;
             case "wins": players.sort((a,b) -> (b.getWins() - a.getWins())); break;
             case "losses": players.sort((a,b) -> (b.getLosses() - a.getLosses())); break;
+            case "win/loss": players.sort((a,b) -> ((int)fraction(a, b))); break;
         }
         return players;
+    }
+
+    private double fraction(Player a, Player b) {
+        double bWins = b.getWins();
+        double aWins = a.getWins();
+        double bLosses = b.getLosses();
+        double aLosses = a.getLosses();
+        return (
+            bWins / bLosses > 0 ? bLosses : .1
+                -
+            aWins / aLosses > 0 ? aLosses : .1
+        );
     }
 }
