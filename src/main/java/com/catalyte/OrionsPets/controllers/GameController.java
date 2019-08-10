@@ -128,9 +128,9 @@ public class GameController {
         @RequestParam String playerTwo,
         @RequestParam int scoreOne,
         @RequestParam int scoreTwo,
-        @RequestParam int gameNumber
+        @RequestParam long time
     ) {
-        Game original = gameRepository.findDistinctByGameNumber(gameNumber);
+        Game original = gameRepository.findDistinctByTime(time);
         Game copy = new Game(
             original.getPlayerOne(),
             original.getPlayerTwo(),
