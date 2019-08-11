@@ -47,6 +47,7 @@ public class PlayerController {
         List<Player> players = playerRepository.findAll();
         switch (type) {
             case "rating": players.sort((a,b) -> (int) (b.getRating() - a.getRating())); break;
+            case "zachRating": players.sort((a,b) -> (int) (b.getZachRating() - a.getZachRating())); break;
             case "games": players.sort((a,b) -> ((b. getWins() + b.getLosses()) - (a.getWins() + a.getLosses()))); break;
             case "wins": players.sort((a,b) -> (b.getWins() - a.getWins())); break;
             case "losses": players.sort((a,b) -> (b.getLosses() - a.getLosses())); break;
