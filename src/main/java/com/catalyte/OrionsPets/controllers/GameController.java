@@ -64,14 +64,13 @@ public class GameController {
     public String rateAllGames() {
         List<Game> games = gameRepository.findAll();
         games.sort(Comparator.comparingLong(Game::getTime));
-
         playerRepository.findAll().forEach(player -> {
             player.setRating(1500);
+            player.setZachRating(1500);
             player.setWins(0);
             player.setLosses(0);
             playerRepository.save(player);
         });
-
         games.forEach(game -> {
             Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
             Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
@@ -79,7 +78,6 @@ public class GameController {
             playerRepository.save(player1);
             playerRepository.save(player2);
         });
-
         return "all games have been rated";
     }
 

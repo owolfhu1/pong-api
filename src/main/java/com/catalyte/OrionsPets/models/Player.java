@@ -10,11 +10,20 @@ public class Player {
   private String id;
   private String username;
   private double rating = 1500;
+  private double zachRating = 1500;
   private int wins = 0;
   private int losses = 0;
 
   public Player(String username) {
     this.username = username;
+  }
+
+  public double getZachRating() {
+    return zachRating;
+  }
+
+  public void setZachRating(double zachRating) {
+    this.zachRating = zachRating;
   }
 
   public void win() {
