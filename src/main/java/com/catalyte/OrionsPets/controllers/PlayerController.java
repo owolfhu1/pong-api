@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -46,23 +47,17 @@ public class PlayerController {
         List<Player> players = playerRepository.findAll();
         switch (type) {
             case "rating": players.sort((a,b) -> (int) (b.getRating() - a.getRating())); break;
-            case "games": players.sort((a,b) -> ((b.getWins() + b.getLosses()) - (a.getWins() + a.getLosses()))); break;
+            case "games": players.sort((a,b) -> ((b. getWins() + b.getLosses()) - (a.getWins() + a.getLosses()))); break;
             case "wins": players.sort((a,b) -> (b.getWins() - a.getWins())); break;
             case "losses": players.sort((a,b) -> (b.getLosses() - a.getLosses())); break;
-            case "win/loss": players.sort((a,b) -> ((int)fraction(a, b))); break;
+            case "win%": players.sort((a, b) -> winPercent(b) - winPercent(a)); break;
         }
         return players;
     }
 
-    private double fraction(Player a, Player b) {
-        double bWins = b.getWins();
-        double aWins = a.getWins();
-        double bLosses = b.getLosses();
-        double aLosses = a.getLosses();
-        return (
-            bWins / bLosses > 0 ? bLosses : .1
-                -
-            aWins / aLosses > 0 ? aLosses : .1
-        );
+    private int winPercent(Player player) {
+        double wins = player.getWins();
+        double total = player.getWins() + player.getLosses();
+        return (int)(wins/total*10000);
     }
 }
