@@ -50,7 +50,7 @@ public class PlayerController {
             case "games": players.sort((a,b) -> ((b. getWins() + b.getLosses()) - (a.getWins() + a.getLosses()))); break;
             case "wins": players.sort((a,b) -> (b.getWins() - a.getWins())); break;
             case "losses": players.sort((a,b) -> (b.getLosses() - a.getLosses())); break;
-            case "win%": players.sort((a, b) -> winPercent(b) - winPercent(a)); break;
+            case "winPercent": players.sort((a, b) -> winPercent(b) - winPercent(a)); break;
         }
         return players;
     }
