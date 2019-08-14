@@ -71,8 +71,12 @@ public class PlayerController {
             playerRepository.existsByUsername(playerTwo)
 
         ) {
-            list.add(playerRepository.findOneByUsername(playerOne).getRating());
-            list.add(playerRepository.findOneByUsername(playerTwo).getRating());
+            double[] array = RatingService.expectations(
+                playerRepository.findOneByUsername(playerOne).getRating(),
+                playerRepository.findOneByUsername(playerTwo).getRating()
+            );
+            list.add(array[0]);
+            list.add(array[1]);
         } else {
             list.add(0.0);
             list.add(0.0);
