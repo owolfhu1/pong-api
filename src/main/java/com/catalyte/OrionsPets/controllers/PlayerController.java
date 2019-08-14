@@ -63,22 +63,23 @@ public class PlayerController {
     }
 
     @RequestMapping(value = "expect", method = RequestMethod.GET)
-    public double[] scores(@RequestParam String playerOne, @RequestParam String playerTwo) {
-        if (
-            !playerOne.equals(playerTwo) &&
-            playerRepository.existsByUsername(playerOne) &&
-            playerRepository.existsByUsername(playerTwo)
-
-        ) {
-            return RatingService.expectations(
-                playerRepository.findOneByUsername(playerOne).getRating(),
-                playerRepository.findOneByUsername(playerTwo).getRating()
-            );
-        } else {
-            double[] array = new double[2];
-            array[0] = 0;
-            array[1] = 0;
-            return array;
-        }
+    public String scores(@RequestParam String playerOne, @RequestParam String playerTwo) {
+//        if (
+//            !playerOne.equals(playerTwo) &&
+//            playerRepository.existsByUsername(playerOne) &&
+//            playerRepository.existsByUsername(playerTwo)
+//
+//        ) {
+//            return RatingService.expectations(
+//                playerRepository.findOneByUsername(playerOne).getRating(),
+//                playerRepository.findOneByUsername(playerTwo).getRating()
+//            );
+//        } else {
+//            double[] array = new double[2];
+//            array[0] = 0;
+//            array[1] = 0;
+//            return array;
+//        }
+        return " tset";
     }
 }
