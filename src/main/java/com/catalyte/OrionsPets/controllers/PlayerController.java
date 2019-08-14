@@ -2,11 +2,11 @@ package com.catalyte.OrionsPets.controllers;
 
 import com.catalyte.OrionsPets.models.Player;
 import com.catalyte.OrionsPets.repositories.PlayerRepository;
+import com.catalyte.OrionsPets.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -60,5 +60,25 @@ public class PlayerController {
         double wins = player.getWins();
         double total = player.getWins() + player.getLosses();
         return (int)(wins/total*10000);
+    }
+
+    @RequestMapping(value = "expect", method = RequestMethod.GET)
+    public double[] scores(@RequestParam String playerOne, @RequestParam String playerTwo) {
+        if (
+            !playerOne.equals(playerTwo) &&
+            playerRepository.existsByUsername(playerOne) &&
+            playerRepository.existsByUsername(playerTwo)
+
+        ) {
+            return RatingService.expectations(
+                playerRepository.findOneByUsername(playerOne).getRating(),
+                playerRepository.findOneByUsername(playerTwo).getRating()
+            );
+        } else {
+            double[] array = new double[2];
+            array[0] = 0;
+            array[1] = 0;
+            return array;
+        }
     }
 }

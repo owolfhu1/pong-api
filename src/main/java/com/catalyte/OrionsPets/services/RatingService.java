@@ -39,4 +39,11 @@ public class RatingService {
             player2.win();
         }
     }
+
+    public static double[] expectations(double one, double two) {
+        double[] array = new double[2];
+        array[0] = Math.pow(10, one / 400) / (Math.pow(10, one / 400) + Math.pow(10, two / 400));
+        array[1] = Math.pow(10, two / 400) / (Math.pow(10, one / 400) + Math.pow(10, two / 400));
+        return array;
+    }
 }
