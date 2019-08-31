@@ -45,21 +45,8 @@ public class PlayerController {
     @RequestMapping(value = "scores", method = RequestMethod.GET)
     public List<Player> scores(@RequestParam String type) {
         List<Player> players = playerRepository.findAll();
-        switch (type) {
-            case "rating": players.sort((a,b) -> (int) (b.getRating() - a.getRating())); break;
-            case "zachRating": players.sort((a,b) -> (int) (b.getZachRating() - a.getZachRating())); break;
-            case "games": players.sort((a,b) -> ((b. getWins() + b.getLosses()) - (a.getWins() + a.getLosses()))); break;
-            case "wins": players.sort((a,b) -> (b.getWins() - a.getWins())); break;
-            case "losses": players.sort((a,b) -> (b.getLosses() - a.getLosses())); break;
-            case "winPercent": players.sort((a, b) -> winPercent(b) - winPercent(a)); break;
-        }
+        RatingService.sort(players, type);
         return players;
-    }
-
-    private int winPercent(Player player) {
-        double wins = player.getWins();
-        double total = player.getWins() + player.getLosses();
-        return (int)(wins/total*10000);
     }
 
     @RequestMapping(value = "expect", method = RequestMethod.GET)
