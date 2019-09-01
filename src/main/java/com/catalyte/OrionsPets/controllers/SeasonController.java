@@ -80,6 +80,31 @@ public class SeasonController {
         }
     }
 
+    @RequestMapping(value = "expect", method = RequestMethod.GET)
+    public ArrayList<Double> scores(@RequestParam String playerOne, @RequestParam String playerTwo) {
+        ArrayList<Double> list = new ArrayList<>();
+        List<Player> players = new ArrayList<>();
+        Season current = seasonRepository.findDistinctByEnd(0);
+        List<Game> games = gameRepository.findByTimeGreaterThan(current.getStart());
+        this.makeAndRate(players, games);
+        if (
+            !playerOne.equals(playerTwo) &&
+            this.hasPlayer(players, playerOne) &&
+            this.hasPlayer(players, playerTwo)
+        ) {
+            double[] array = RatingService.expectations(
+                this.getPlayer(players, playerOne).getRating(),
+                this.getPlayer(players, playerTwo).getRating()
+            );
+            list.add(array[0]);
+            list.add(array[1]);
+        } else {
+            list.add(0.0);
+            list.add(0.0);
+        }
+        return list;
+    }
+
     private boolean hasPlayer(List<Player> players, String player) {
         AtomicBoolean result = new AtomicBoolean(false);
         players.forEach(p -> {
