@@ -65,4 +65,8 @@ public class RatingService {
         double total = player.getWins() + player.getLosses();
         return (int)(wins/total*10000);
     }
+
+    public static void playersWithGamesOnly(List<Player> players) {
+        players.removeIf(player -> player.getLosses() + player.getWins() == 0);
+    }
 }

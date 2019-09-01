@@ -46,6 +46,7 @@ public class PlayerController {
     public List<Player> scores(@RequestParam String type) {
         List<Player> players = playerRepository.findAll();
         RatingService.sort(players, type);
+        RatingService.playersWithGamesOnly(players);
         return players;
     }
 
