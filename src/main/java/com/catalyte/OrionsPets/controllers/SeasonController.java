@@ -56,11 +56,6 @@ public class SeasonController {
         return players;
     }
 
-    @RequestMapping(value = "currentObj", method = RequestMethod.GET)
-    public Season currentObj() {
-        return seasonRepository.findDistinctByEnd(0);
-    }
-
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public List<Season> all() {
         return seasonRepository.findAll();
