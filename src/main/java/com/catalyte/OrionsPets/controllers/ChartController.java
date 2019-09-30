@@ -51,11 +51,13 @@ public class ChartController {
         games.forEach(game -> {
             Player one = this.getPlayer(players, game.getPlayerOne());
             Player two = this.getPlayer(players, game.getPlayerTwo());
+            int oldOne = (int)one.getRating();
+            int oldTwo = (int)two.getRating();
             DataSet oneSet = this.getSet(returnList, game.getPlayerOne());
             DataSet twoSet = this.getSet(returnList, game.getPlayerTwo());
             RatingService.rate(one, two, game.getScoreOne(), game.getScoreTwo());
-            oneSet.addPoint(new PlotPoint(game.getTime(), (int)one.getRating()));
-            twoSet.addPoint(new PlotPoint(game.getTime(), (int)two.getRating()));
+            oneSet.addPoint(new PlotPoint(game.getTime(), (int)one.getRating(), game, one.getUsername(), oldOne));
+            twoSet.addPoint(new PlotPoint(game.getTime(), (int)two.getRating(), game, two.getUsername(), oldTwo));
         });
 
         return returnList;
