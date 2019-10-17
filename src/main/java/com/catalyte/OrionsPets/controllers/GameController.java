@@ -46,10 +46,18 @@ public class GameController {
             gameRepository.insert(game);
             Player player1 = playerRepository.findOneByUsername(game.getPlayerOne());
             Player player2 = playerRepository.findOneByUsername(game.getPlayerTwo());
+            double before = player1.getRating();
             RatingService.rate(player1, player2, game.getScoreOne(), game.getScoreTwo());
+            double after = player1.getRating();
             playerRepository.save(player1);
             playerRepository.save(player2);
-            return "You have added a new game and rating have been updated, game time  " + time;
+            String amount = Math.abs(before - after) + "";
+            return String.format(
+                "Game recorded: %s has exceeded my expectations and stolen %s rank from %s!",
+                before > after ? player2.getUsername() : player1.getUsername(),
+                amount.length() > 3 ? amount.substring(0, 4) : amount,
+                before <= after ? player2.getUsername() : player1.getUsername()
+            );
         }
     }
 
