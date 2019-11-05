@@ -9,13 +9,32 @@ public class Player {
   @Id
   private String id;
   private String username;
+  private String password;
   private double rating = 1500;
   private double zachRating = 1500;
   private int wins = 0;
   private int losses = 0;
 
+  public Player() {
+
+  }
+
+  public Player(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
+
   public Player(String username) {
     this.username = username;
+    this.password = "This is not a password.";
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public double getZachRating() {
